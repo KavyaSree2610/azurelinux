@@ -50,6 +50,10 @@ pkgs=`cat`
 echo "$pkgs"
 
 for rpmpackage in $pkgs; do
+    package_debuginfo=$(echo "$rpmpackage" | rev | cut -f3 -d'-' | rev)
+    if [[ "$package_debuginfo" == "debuginfo" ]]; then
+        continue
+	fi
     package_path=$(find "$rpms_folder" -name "$rpmpackage" -type f)
     package_provides=`2>/dev/null rpm -qP "$package_path" | grep -E '[.]so[(.]' `
     echo "Processing ${rpmpackage}..."
