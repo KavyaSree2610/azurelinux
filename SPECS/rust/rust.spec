@@ -110,7 +110,7 @@ sh ./configure \
     --prefix=%{_prefix} \
     --enable-extended \
     --enable-profiler \
-    --tools="cargo,clippy,rustfmt,rust-analyzer-proc-macro-srv,rust-demangler" \
+    --tools="cargo,clippy,rustfmt,rust-analyzer-proc-macro-srv,rustfilt" \
     --release-channel="stable" \
     --release-description="Azure Linux %{version}-%{release}"
 
@@ -149,7 +149,7 @@ rm -f %{buildroot}%{_bindir}/*.old
 %{_libexecdir}/rust-analyzer-proc-macro-srv
 %{_bindir}/rust-gdb
 %{_bindir}/rust-gdbgui
-%{_bindir}/rust-demangler
+%{_bindir}/rustfilt
 %{_bindir}/cargo
 %{_bindir}/cargo-clippy
 %{_bindir}/cargo-fmt
@@ -160,8 +160,10 @@ rm -f %{buildroot}%{_bindir}/*.old
 
 %files doc
 %license LICENSE-APACHE LICENSE-MIT LICENSE-THIRD-PARTY COPYRIGHT
-%doc %{_docdir}/%{name}/html/*
-%doc %{_docdir}/%{name}/README.md
+%doc %{_docdir}/rustc/README.md
+%doc %{_docdir}/cargo/*
+%doc %{_docdir}/rustfmt/*
+%doc %{_docdir}/clippy/*
 %doc CONTRIBUTING.md README.md RELEASES.md
 %doc src/tools/clippy/CHANGELOG.md
 %doc src/tools/rustfmt/Configurations.md
