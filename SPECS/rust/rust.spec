@@ -134,6 +134,7 @@ rm -v ./tests/rustdoc-ui/issue-98690.*
 USER=root SUDO_USER=root %make_install
 mv %{buildroot}%{_docdir}/cargo/LICENSE-THIRD-PARTY .
 rm -f %{buildroot}%{_docdir}/rustc/{COPYRIGHT,LICENSE-APACHE,LICENSE-MIT}
+rm -f %{buildroot}%{_docdir}/docs/html/.lock
 rm -f %{buildroot}%{_docdir}/rustc/*.old
 rm -f %{buildroot}%{_bindir}/*.old
 
@@ -158,11 +159,12 @@ rm -f %{buildroot}%{_bindir}/*.old
 %{_sysconfdir}/bash_completion.d/cargo
 
 %files doc
-%license LICENSE-APACHE LICENSE-MIT LICENSE-THIRD-PARTY COPYRIGHT
+%license LICENSE-APACHE LICENSE-MIT LICENSE-THIRD-PARTY COPYRIGT
 %doc %{_docdir}/rustc/README.md
 %doc %{_docdir}/cargo/*
 %doc %{_docdir}/rustfmt/*
 %doc %{_docdir}/clippy/*
+%doc %{_docdir}/docs/html/*
 %doc CONTRIBUTING.md README.md RELEASES.md
 %doc src/tools/clippy/CHANGELOG.md
 %doc src/tools/rustfmt/Configurations.md
