@@ -110,7 +110,7 @@ sh ./configure \
     --prefix=%{_prefix} \
     --enable-extended \
     --enable-profiler \
-    --tools="cargo,clippy,rustfmt,rust-analyzer-proc-macro-srv,rustfilt" \
+    --tools="cargo,clippy,rustfmt,rust-analyzer-proc-macro-srv" \
     --release-channel="stable" \
     --release-description="Azure Linux %{version}-%{release}"
 
@@ -149,7 +149,6 @@ rm -f %{buildroot}%{_bindir}/*.old
 %{_libexecdir}/rust-analyzer-proc-macro-srv
 %{_bindir}/rust-gdb
 %{_bindir}/rust-gdbgui
-%{_bindir}/rustfilt
 %{_bindir}/cargo
 %{_bindir}/cargo-clippy
 %{_bindir}/cargo-fmt
