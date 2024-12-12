@@ -105,11 +105,6 @@ CONFIG_FILE="$src_root/src/stage0"
 RUST_RELEASE_DATE=$(grep "^compiler_date=" $CONFIG_FILE | cut -d '=' -f 2)
 RUST_STAGE0_VERSION=$(grep "^compiler_version=" $CONFIG_FILE | cut -d '=' -f 2)
 
-echo "=========================="
-echo "release date:   $RUST_RELEASE_DATE"
-echo "stage0 version: $RUST_STAGE0_VERSION"
-echo " "
-
 wget https://static.rust-lang.org/dist/$RUST_RELEASE_DATE/cargo-$RUST_STAGE0_VERSION-x86_64-unknown-linux-gnu.tar.xz
 wget https://static.rust-lang.org/dist/$RUST_RELEASE_DATE/rustc-$RUST_STAGE0_VERSION-x86_64-unknown-linux-gnu.tar.xz
 wget https://static.rust-lang.org/dist/$RUST_RELEASE_DATE/rust-std-$RUST_STAGE0_VERSION-x86_64-unknown-linux-gnu.tar.xz
