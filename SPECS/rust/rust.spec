@@ -159,7 +159,7 @@ rm -f %{buildroot}%{_bindir}/*.old
 %{_sysconfdir}/bash_completion.d/cargo
 
 %files doc
-%license LICENSE-APACHE LICENSE-MIT LICENSE-THIRD-PARTY COPYRIGT
+%license LICENSE-APACHE LICENSE-MIT LICENSE-THIRD-PARTY COPYRIGHT
 %doc %{_docdir}/rustc/README.md
 %doc %{_docdir}/cargo/*
 %doc %{_docdir}/rustfmt/*
