@@ -110,7 +110,7 @@ sh ./configure \
     --prefix=%{_prefix} \
     --enable-extended \
     --enable-profiler \
-    --tools="cargo,clippy,rustfmt,rust-analyzer-proc-macro-srv" \
+    --tools="cargo,clippy,rustfmt,rust-analyzer-proc-macro-srv,tidy" \
     --release-channel="stable" \
     --release-description="Azure Linux %{version}-%{release}"
 
