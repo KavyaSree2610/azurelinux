@@ -1,0 +1,41 @@
+From d437e8b4ec2eacb6fe0cc825e8dc1eefdca29e43 Mon Sep 17 00:00:00 2001
+From: kavyasree <kkaitepalli@microsoft.com>
+Date: Sun, 15 Dec 2024 09:44:25 +0530
+Subject: [PATCH] fix-21763-uitest
+
+---
+ tests/ui/issues/issue-21763.stderr | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/tests/ui/issues/issue-21763.stderr b/tests/ui/issues/issue-21763.stderr
+index aa4938a0c0b..df50118ac47 100644
+--- a/tests/ui/issues/issue-21763.stderr
++++ b/tests/ui/issues/issue-21763.stderr
+@@ -4,11 +4,14 @@ error[E0277]: `Rc<()>` cannot be sent between threads safely
+ LL |     foo::<HashMap<Rc<()>, Rc<()>>>();
+    |           ^^^^^^^^^^^^^^^^^^^^^^^ `Rc<()>` cannot be sent between threads safely
+    |
+-   = help: within `(Rc<()>, Rc<()>)`, the trait `Send` is not implemented for `Rc<()>`, which is required by `HashMap<Rc<()>, Rc<()>>: Send`
++   = help: within `(Rc<()>, Rc<()>)`, the trait `Send` is not implemented for `Rc<()>`
+    = note: required because it appears within the type `(Rc<()>, Rc<()>)`
+    = note: required for `hashbrown::raw::RawTable<(Rc<()>, Rc<()>)>` to implement `Send`
+-note: required because it appears within the type `hashbrown::map::HashMap<Rc<()>, Rc<()>, RandomState>`
++note: required because it appears within the type `HashMap<Rc<()>, Rc<()>, RandomState>`
+   --> $HASHBROWN_SRC_LOCATION
++   |
++LL | pub struct HashMap<K, V, S = DefaultHashBuilder, A: Allocator + Clone = Global> {
++   |            ^^^^^^^
+ note: required because it appears within the type `HashMap<Rc<()>, Rc<()>>`
+   --> $SRC_DIR/std/src/collections/hash/map.rs:LL:COL
+ note: required by a bound in `foo`
+@@ -17,6 +20,6 @@ note: required by a bound in `foo`
+ LL | fn foo<T: Send>() {}
+    |           ^^^^ required by this bound in `foo`
+ 
+-error: aborting due to 1 previous error
++error: aborting due to previous error
+ 
+ For more information about this error, try `rustc --explain E0277`.
+-- 
+2.34.1
+
