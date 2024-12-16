@@ -110,7 +110,7 @@ sh ./configure \
     --prefix=%{_prefix} \
     --enable-extended \
     --enable-profiler \
-    --tools="cargo,clippy,rustfmt,rust-analyzer-proc-macro-srv,tidy" \
+    --tools="cargo,clippy,rustfmt,rust-analyzer-proc-macro-srv" \
     --release-channel="stable" \
     --release-description="Azure Linux %{version}-%{release}"
 
@@ -170,6 +170,13 @@ rm -f %{buildroot}%{_bindir}/*.old
 %{_mandir}/man1/*
 
 %changelog
+* Mon Dec 16 2024 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> - 1.83.0-1
+- Upgrade to 1.83.0
+- Drop patches
+- Remove expand-yaml-anchors tool in %check
+- Remove rust-demangler tool 
+- Add patch to fix ui-test-21763
+
 * Mon Aug 26 2024 Rachel Menge <rachelmenge@microsoft.com> - 1.75.0-11
 - Update to build dep latest glibc-static version
 
