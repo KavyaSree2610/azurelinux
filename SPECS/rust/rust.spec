@@ -8,7 +8,7 @@
 
 Summary:        Rust Programming Language
 Name:           rust
-Version:        1.83.0
+Version:        1.84.0
 Release:        1%{?dist}
 License:        (ASL 2.0 OR MIT) AND BSD AND CC-BY-3.0
 Vendor:         Microsoft Corporation
@@ -170,8 +170,8 @@ rm -f %{buildroot}%{_bindir}/*.old
 %{_mandir}/man1/*
 
 %changelog
-* Mon Dec 16 2024 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> - 1.83.0-1
-- Upgrade to 1.83.0
+* Mon Dec 16 2024 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> - 1.84.0-1
+- Upgrade to 1.84.0
 - Drop patches
 - Remove expand-yaml-anchors tool in %check
 - Remove rust-demangler tool 
