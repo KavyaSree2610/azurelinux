@@ -3,8 +3,8 @@
 
 # Release date and version of stage 0 compiler can be found in "src/stage0.json" inside the extracted "Source0".
 # Look for "date:" and "rustc:".
-%define release_date 2024-10-17
-%define stage0_version 1.82.0
+%define release_date 2024-11-28
+%define stage0_version 1.83.0
 
 Summary:        Rust Programming Language
 Name:           rust
