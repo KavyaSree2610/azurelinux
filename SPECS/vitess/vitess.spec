@@ -65,7 +65,7 @@ for cmd in $(find go/cmd/* -maxdepth 0 -type d); do
     continue
   fi
   go build -buildmode pie -compiler gc '-tags=rpm_crashtraceback ' \
-           -ldflags "-X vitess.io/vitess/version=$VERSION -linkmode=external -extldflags -Wl,-z,relro" \
+           -ldflags "-X vitess.io/vitess/version=$VERSION -extldflags -Wl,-z,relro" \
            -mod=vendor -v -a -x -o ./bin/$(basename $cmd) ./$cmd
 done
 
