@@ -175,12 +175,13 @@ rm -f %{buildroot}%{_bindir}/*.old
 %{_mandir}/man1/*
 
 %changelog
-* Mon Dec 16 2024 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> - 1.84.0-1
-- Upgrade to 1.84.0
+* Thu Feb 27 2025 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> - 1.85.0-1
+- Upgrade to 1.85.0
 - Drop patches
 - Remove expand-yaml-anchors tool in %check
 - Remove rust-demangler tool 
-- Add patch to fix ui-test-21763
+- Update generate_source_tarball script
+- Skipped and Removed failing tests
 
 * Mon Aug 26 2024 Rachel Menge <rachelmenge@microsoft.com> - 1.75.0-11
 - Update to build dep latest glibc-static version
