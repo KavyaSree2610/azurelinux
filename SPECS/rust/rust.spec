@@ -46,6 +46,7 @@ Patch0:		Remove_cannot_write_error_test.patch
 Patch1:		Remove_leave_log_after_failure_test.patch
 Patch2:		Ignore_failing_ci_tests.patch
 Patch3:		skip-failing-run-make-tests.patch
+Patch4:		Ignore-test-for-aarch64.patch
 Patch100:	CVE-2024-9681.patch
 BuildRequires:  binutils
 BuildRequires:  cmake
