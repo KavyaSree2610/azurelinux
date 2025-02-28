@@ -63,7 +63,7 @@ BuildRequires:  ninja-build
 BuildRequires:  openssl-devel
 BuildRequires:  python3
 %if 0%{?with_check}
-BuildRequires:  glibc-static >= 2.38-8%{?dist}
+BuildRequires:  glibc-static >= 2.38-9%{?dist}
 %endif
 # rustc uses a C compiler to invoke the linker, and links to glibc in most cases
 Requires:       binutils
@@ -183,6 +183,9 @@ rm -f %{buildroot}%{_bindir}/*.old
 - Remove rust-demangler tool 
 - Update generate_source_tarball script
 - Skipped and Removed failing tests
+
+* Thu Feb 27 2025 Chris Co <chrco@microsoft.com> - 1.75.0-12
+- Bump to rebuild with updated glibc
 
 * Mon Aug 26 2024 Rachel Menge <rachelmenge@microsoft.com> - 1.75.0-11
 - Update to build dep latest glibc-static version
