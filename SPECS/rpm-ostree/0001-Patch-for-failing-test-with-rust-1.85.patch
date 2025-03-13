@@ -1,0 +1,117 @@
+From dfc027f132e73a8add8278663e130350cae4a719 Mon Sep 17 00:00:00 2001
+From: Kavya Sree Kaitepalli <kkaitepalli@microsoft.com>
+Date: Thu, 13 Mar 2025 10:36:01 +0000
+Subject: [PATCH] Patch for failing test with rust 1.85
+
+---
+ build.rs | 91 +++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 57 insertions(+), 34 deletions(-)
+
+diff --git a/build.rs b/build.rs
+index 404d0c6e..363a6b8b 100644
+--- a/build.rs
++++ b/build.rs
+@@ -1,43 +1,66 @@
+ // SPDX-License-Identifier: Apache-2.0 OR MIT
+ use anyhow::Result;
+ 
+-fn detect_fedora_feature() -> Result<()> {
+-    if !std::path::Path::new("/usr/lib/os-release").exists() {
+-        return Ok(());
+-    }
+-    let p = std::process::Command::new("sh")
+-        .args(&["-c", ". /usr/lib/os-release && echo ${ID}"])
+-        .stdout(std::process::Stdio::piped())
+-        .output()?;
+-    let out = std::str::from_utf8(&p.stdout).ok().map(|s| s.trim());
+-    if out == Some("fedora") {
+-        println!(r#"cargo:rustc-cfg=feature="fedora-integration""#)
+-    }
+-    Ok(())
+-}
+-
+ fn main() -> Result<()> {
+-    if std::env::var("CARGO_FEATURE_SANITIZERS").is_ok() {
+-        // Force these on
+-        println!("cargo:rustc-link-lib=ubsan");
+-        println!("cargo:rustc-link-lib=asan");
++    let libs = system_deps::Config::new().probe()?;
++    let has_gpgme_pkgconfig = libs.get_by_name("gpgme").is_some();
++    let with_zck: u8 = libs.get_by_name("zck").is_some().into();
++    let with_rhsm = std::env::var_os("CARGO_FEATURE_RHSM").is_some();
++
++    // first, the submodule proper
++    let libdnf = cmake::Config::new("../../libdnf")
++        // Needed for hardened builds
++        .cxxflag("-fPIC")
++        // I picked /usr/libexec/rpm-ostree just because we need an
++        // arbitrary path - we don't actually install there.
++        .define("CMAKE_INSTALL_PREFIX:PATH", "/usr/libexec/rpm-ostree")
++        .define(
++            "INCLUDE_INSTALL_DIR:PATH",
++            "/usr/libexec/rpm-ostree/include",
++        )
++        .define("LIB_INSTALL_DIR:PATH", "/usr/libexec/rpm-ostree")
++        .define("SYSCONF_INSTALL_DIR:PATH", "/usr/libexec/rpm-ostree/etc")
++        .define("SHARE_INSTALL_PREFIX:PATH", "/usr/libexec/rpm-ostree/share")
++        .define("ENABLE_STATIC:BOOL", "1")
++        .define("CMAKE_POSITION_INDEPENDENT_CODE", "ON")
++        // We don't need docs
++        .define("WITH_HTML:BOOL", "0")
++        .define("WITH_MAN:BOOL", "0")
++        .define(
++            "ENABLE_RHSM_SUPPORT:BOOL",
++            if with_rhsm { "1" } else { "0" },
++        )
++        // Auto-enable zchunk, if present
++        .define("WITH_ZCHUNK:BOOL", format!("{}", with_zck))
++        // Don't need bindings
++        .define("WITH_BINDINGS:BOOL", "0")
++        // Needed in Koji at least because timestamps(?)
++        // cause cmake to rerun without our -D flags which
++        // breaks the build.
++        .always_configure(false)
++        .build_target("all")
++        .build();
++    // NOTE(lucab): consider using `gpgme-config` it this stops working.
++    if !has_gpgme_pkgconfig {
++        println!("cargo:rustc-link-lib=gpgme");
+     }
+-    let cwd = std::env::current_dir()?;
+-    let cwd = cwd.to_str().expect("utf8 pwd");
+-    println!("cargo:rustc-link-search={}/.libs", cwd);
+-    println!("cargo:rustc-link-lib=static=rpmostreeinternals");
+     println!(
+-        "cargo:rerun-if-changed={}/.libs/librpmostreeinternals.a",
+-        cwd
++        "cargo:rustc-link-search=native={}/build/libdnf",
++        libdnf.display()
+     );
+-    println!("cargo:rustc-link-lib=cap");
+-    println!("cargo:rustc-link-lib=rt");
+-    println!("cargo:rustc-link-lib=stdc++");
+-    // https://github.com/ostreedev/ostree/commit/1f832597fc83fda6cb8daf48c4495a9e1590774c
+-    // https://github.com/rust-lang/rust/issues/47714
+-    println!("cargo:rustc-link-lib=dl");
+-    println!("cargo:rustc-link-lib=m");
+-    system_deps::Config::new().probe()?;
+-    detect_fedora_feature()?;
++
++    // now, our thin cxx.rs bridge wrapper
++    let mut libdnfcxx = cxx_build::bridge("lib.rs");
++    libdnfcxx
++        .file("cxx/libdnf.cxx")
++        .flag("-std=c++17")
++        .include("cxx") // this is needed for cxx.rs' `include!("libdnf.hpp")` to work
++        .include("../../libdnf");
++    libdnfcxx.includes(libs.all_include_paths());
++    libdnfcxx.compile("libdnfcxx.a");
++
++    println!("cargo:rustc-link-lib=static=dnf");
++    println!("cargo:rustc-link-lib=glib-2.0");
++
+     Ok(())
+ }
+-- 
+2.45.3
+
