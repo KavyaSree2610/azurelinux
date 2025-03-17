@@ -12,7 +12,7 @@ Source0:        https://github.com/Cisco-Talos/clamav/archive/refs/tags/%{name}-
 # To update the cache run:
 #   [repo_root]/toolkit/scripts/build_cargo_cache.sh %%{name}-%%{version}.tar.gz %%{name}-%%{name}-%%{version}
 
-# Note: Required an updated cargo cache when rust was updated to 1.72.0, added "-rev2" to the filename to indicate the new cache for this
+# Note: Required an updated cargo cache when rust was updated to 1.85.0, added "-1" to the filename to indicate the new cache for this
 # specific event. Revert back to the original filename when a new cache is created for a different version.
 Source1:        %{name}-%{version}-1-cargo.tar.gz
 BuildRequires:  bzip2-devel
@@ -136,7 +136,7 @@ fi
 %dir %attr(-,clamav,clamav) %{_sharedstatedir}/clamav
 
 %changelog
-* Fri Mar 07 2025 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> -1.0.7-2
+* Fri Mar 07 2025 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> - 1.0.7-2
 - Re-created vendor tarball with build with rust 1.85
 
 * Fri Oct 18 2024 Archana Choudhary <archana1@microsoft.com> - 1.0.7-1
