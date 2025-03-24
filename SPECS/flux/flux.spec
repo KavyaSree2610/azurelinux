@@ -70,9 +70,7 @@ This package contains the header files and libraries for building
 programs using Influx data language.
 
 %prep
-%setup -q
-%patch 0 -p1
-%patch 1 -p1
+%autosetup -p1
 pushd libflux
 tar -xf %{SOURCE1}
 install -D %{SOURCE2} .cargo/config
@@ -129,6 +127,7 @@ RUSTFLAGS=%{rustflags} cargo test --release
 %changelog
 * Wed Mar 05 2025 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> - 0.194.5-2
 - Build with rust 1.85
+- use autosetup
 
 * Thu Feb 01 2024 Mykhailo Bykhovtsev <mbykhovtsev@microsoft.com> - 0.194.5-1
 - Upgrade to version 0.194.5
