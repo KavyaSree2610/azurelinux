@@ -133,7 +133,7 @@ mkdir -p .github/workflows
 ln -s %{_topdir}/BUILD/rustc-%{version}-src/build/x86_64-unknown-linux-gnu/stage2-tools-bin/rustfmt %{_topdir}/BUILD/rustc-%{version}-src/build/x86_64-unknown-linux-gnu/stage0/bin/
 ln -s %{_topdir}/BUILD/rustc-%{version}-src/vendor/ /root/vendor
 # remove rustdoc ui flaky test issue-98690.rs (which is tagged with 'unstable-options')
-rm -v ./tests/rustdoc-ui/issues/issue-98690.*
+#rm -v ./tests/rustdoc-ui/issues/issue-98690.*
 %make_build check
 echo "Checking after tests Current user: $(whoami)"
 %install
