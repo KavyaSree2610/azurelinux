@@ -42,10 +42,7 @@ Source5:        https://static.rust-lang.org/dist/%{release_date}/cargo-%{stage0
 Source6:        https://static.rust-lang.org/dist/%{release_date}/rustc-%{stage0_version}-aarch64-unknown-linux-gnu.tar.xz
 Source7:        https://static.rust-lang.org/dist/%{release_date}/rust-std-%{stage0_version}-aarch64-unknown-linux-gnu.tar.xz
 
-Patch0:		Remove_cannot_write_error_test.patch
-Patch1:		Remove_leave_log_after_failure_test.patch
 Patch2:		Ignore_failing_ci_tests.patch
-Patch3:		skip-failing-run-make-tests.patch
 Patch4:		Ignore-test-for-aarch64.patch
 Patch100:	CVE-2024-9681.patch
 BuildRequires:  binutils
@@ -127,15 +124,16 @@ USER=root SUDO_USER=root %make_build
 %check
 # We expect to generate dynamic CI contents in this folder, but it will fail since the .github folder is not included
 # with the published sources.
-echo "Checking before tests Current user: $(whoami)"
 mkdir -p .github/workflows
 
 ln -s %{_topdir}/BUILD/rustc-%{version}-src/build/x86_64-unknown-linux-gnu/stage2-tools-bin/rustfmt %{_topdir}/BUILD/rustc-%{version}-src/build/x86_64-unknown-linux-gnu/stage0/bin/
 ln -s %{_topdir}/BUILD/rustc-%{version}-src/vendor/ /root/vendor
 # remove rustdoc ui flaky test issue-98690.rs (which is tagged with 'unstable-options')
 #rm -v ./tests/rustdoc-ui/issues/issue-98690.*
-%make_build check
-echo "Checking after tests Current user: $(whoami)"
+useradd test
+chown -R test:test .
+sudo -u test %make_build check
+userdel -r test
 %install
 USER=root SUDO_USER=root %make_install
 mv %{buildroot}%{_docdir}/cargo/LICENSE-THIRD-PARTY .

@@ -58,10 +58,8 @@ tar xf %{SOURCE1} --no-same-owner
 popd
 %autosetup -n clamav-clamav-%{version}
 
-echo "Current user: $(id -un)"
 %build
 
-echo "Current user: $(id -un)"
 export CARGO_NET_OFFLINE=true
 # Notes:
 # - milter must be disable because CBL-Mariner does not provide 'sendmail' packages
