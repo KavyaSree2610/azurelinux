@@ -131,7 +131,7 @@ ln -s %{_topdir}/BUILD/rustc-%{version}-src/build/x86_64-unknown-linux-gnu/stage
 ln -s %{_topdir}/BUILD/rustc-%{version}-src/vendor/ /root/vendor
 # remove rustdoc ui flaky test issue-98690.rs (which is tagged with 'unstable-options')
 #rm -v ./tests/rustdoc-ui/issues/issue-98690.*
-useradd test
+useradd -m -d /home/test test
 chown -R test:test .
 sudo -u test %make_build check
 userdel -r test
