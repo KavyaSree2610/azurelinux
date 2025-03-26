@@ -78,9 +78,11 @@ cmake \
     -D ENABLE_MILTER=OFF \
     -D ENABLE_EXAMPLES=OFF
 %cmake3_build
+echo "Current user: $(id -un)"
 
 %check
 %ctest3 -- -E valgrind
+echo "Current user: $(id -un)"
 
 %install
 %cmake_install
