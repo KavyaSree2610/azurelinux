@@ -58,7 +58,10 @@ tar xf %{SOURCE1} --no-same-owner
 popd
 %autosetup -n clamav-clamav-%{version}
 
+echo "Current user: $(id -un)"
 %build
+
+echo "Current user: $(id -un)"
 export CARGO_NET_OFFLINE=true
 # Notes:
 # - milter must be disable because CBL-Mariner does not provide 'sendmail' packages
@@ -78,11 +81,9 @@ cmake \
     -D ENABLE_MILTER=OFF \
     -D ENABLE_EXAMPLES=OFF
 %cmake3_build
-echo "Current user: $(id -un)"
 
 %check
 %ctest3 -- -E valgrind
-echo "Current user: $(id -un)"
 
 %install
 %cmake_install
