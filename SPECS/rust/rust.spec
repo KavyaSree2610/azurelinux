@@ -42,8 +42,8 @@ Source5:        https://static.rust-lang.org/dist/%{release_date}/cargo-%{stage0
 Source6:        https://static.rust-lang.org/dist/%{release_date}/rustc-%{stage0_version}-aarch64-unknown-linux-gnu.tar.xz
 Source7:        https://static.rust-lang.org/dist/%{release_date}/rust-std-%{stage0_version}-aarch64-unknown-linux-gnu.tar.xz
 
-Patch2:		Ignore_failing_ci_tests.patch
-Patch4:		Ignore-test-for-aarch64.patch
+Patch0:		Ignore_failing_ci_tests.patch
+#Patch1:		Ignore-test-for-aarch64.patch
 Patch100:	CVE-2024-9681.patch
 BuildRequires:  binutils
 BuildRequires:  cmake
@@ -61,8 +61,8 @@ BuildRequires:  openssl-devel
 BuildRequires:  python3
 %if 0%{?with_check}
 BuildRequires:  glibc-static >= 2.38-9%{?dist}
-%endif
 BuildRequires:	sudo
+%endif
 # rustc uses a C compiler to invoke the linker, and links to glibc in most cases
 Requires:       binutils
 Requires:       curl
@@ -133,7 +133,7 @@ ln -s %{_topdir}/BUILD/rustc-%{version}-src/vendor/ /root/vendor
 rm -v ./tests/rustdoc-ui/issues/issue-98690.*
 useradd -m -d /home/test test
 chown -R test:test .
-sudo -u test %make_build check
+sudo -u test ./x.py test --verbose
 userdel -r test
 %install
 USER=root SUDO_USER=root %make_install
@@ -180,7 +180,7 @@ rm %{buildroot}%{_docdir}/docs/html/.lock
 - Remove expand-yaml-anchors tool in %check
 - Remove rust-demangler tool 
 - Update generate_source_tarball script
-- Skipped and Removed failing tests
+- Run %check as test user
 
 * Thu Feb 27 2025 Chris Co <chrco@microsoft.com> - 1.75.0-12
 - Bump to rebuild with updated glibc
