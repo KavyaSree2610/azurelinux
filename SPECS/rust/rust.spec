@@ -41,7 +41,8 @@ Source4:        https://static.rust-lang.org/dist/%{release_date}/rust-std-%{sta
 Source5:        https://static.rust-lang.org/dist/%{release_date}/cargo-%{stage0_version}-aarch64-unknown-linux-gnu.tar.xz
 Source6:        https://static.rust-lang.org/dist/%{release_date}/rustc-%{stage0_version}-aarch64-unknown-linux-gnu.tar.xz
 Source7:        https://static.rust-lang.org/dist/%{release_date}/rust-std-%{stage0_version}-aarch64-unknown-linux-gnu.tar.xz
-
+# These ci tests are expecting rust source to be git repository, since we are using a tarball
+# we are missing git metadata so these tests are failing, hence ignoring these tests
 Patch0:		Ignore_failing_ci_tests.patch
 Patch100:	CVE-2024-9681.patch
 BuildRequires:  binutils
@@ -133,7 +134,7 @@ ln -s /usr/bin/aarch64-unknown-linux-gnu-gcc /usr/bin/aarch64-linux-gnu-gcc
 rm -v ./tests/rustdoc-ui/issues/issue-98690.*
 useradd -m -d /home/test test
 chown -R test:test .
-sudo -u test ./x.py test --verbose
+sudo -u test %make_build check
 userdel -r test
 %install
 USER=root SUDO_USER=root %make_install

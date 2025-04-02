@@ -59,7 +59,6 @@ popd
 %autosetup -n clamav-clamav-%{version}
 
 %build
-
 export CARGO_NET_OFFLINE=true
 # Notes:
 # - milter must be disable because CBL-Mariner does not provide 'sendmail' packages
