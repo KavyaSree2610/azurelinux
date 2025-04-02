@@ -14,6 +14,7 @@ Source0:        https://github.com/Cisco-Talos/clamav/archive/refs/tags/%{name}-
 
 # Note: Required an updated cargo cache when rust was updated to 1.85.0, added "-1" to the filename to indicate the new cache for this
 # specific event. Revert back to the original filename when a new cache is created for a different version.
+# With rust 1.85, the hash value has changed, New cargo looks up for global cache labelled `index.crates.io-<new-hash>` for dependencies in offline mode
 Source1:        %{name}-%{version}-1-cargo.tar.gz
 BuildRequires:  bzip2-devel
 BuildRequires:  check-devel

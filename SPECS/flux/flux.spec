@@ -39,8 +39,11 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.
 #
 Source1:        %{name}-%{version}-cargo.tar.gz
 Source2:        cargo_config
+# This patch can be removed when flux gets updated to v0.196.0
 Patch0:		0001-flux-enable-build-with-rust-1.85.0.patch
-Patch1:		test-with-rust.1.85.0.patch
+Patch1:		disable-static-library.patch
+# This patch is for unblocking build to allow warnings
+Patch2:		test-with-rust.1.85.0.patch
 BuildRequires:  cargo >= 1.45
 BuildRequires:  kernel-headers
 BuildRequires:  rust >= 1.45
