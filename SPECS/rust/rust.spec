@@ -43,7 +43,6 @@ Source6:        https://static.rust-lang.org/dist/%{release_date}/rustc-%{stage0
 Source7:        https://static.rust-lang.org/dist/%{release_date}/rust-std-%{stage0_version}-aarch64-unknown-linux-gnu.tar.xz
 
 Patch0:		Ignore_failing_ci_tests.patch
-#Patch1:		Ignore-test-for-aarch64.patch
 Patch100:	CVE-2024-9681.patch
 BuildRequires:  binutils
 BuildRequires:  cmake
@@ -130,6 +129,7 @@ mkdir -p .github/workflows
 ln -s %{_topdir}/BUILD/rustc-%{version}-src/build/x86_64-unknown-linux-gnu/stage2-tools-bin/rustfmt %{_topdir}/BUILD/rustc-%{version}-src/build/x86_64-unknown-linux-gnu/stage0/bin/
 ln -s %{_topdir}/BUILD/rustc-%{version}-src/vendor/ /root/vendor
 # remove rustdoc ui flaky test issue-98690.rs (which is tagged with 'unstable-options')
+ln -s /usr/bin/aarch64-unknown-linux-gnu-gcc /usr/bin/aarch64-linux-gnu-gcc
 rm -v ./tests/rustdoc-ui/issues/issue-98690.*
 useradd -m -d /home/test test
 chown -R test:test .
