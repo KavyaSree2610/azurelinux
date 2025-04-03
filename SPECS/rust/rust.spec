@@ -172,6 +172,7 @@ rm %{buildroot}%{_docdir}/docs/html/.lock
 %doc %{_docdir}/cargo/*
 %doc %{_docdir}/rustfmt/*
 %doc %{_docdir}/clippy/*
+%doc %{_docdir}/docs/html/*
 %doc CONTRIBUTING.md README.md RELEASES.md
 %doc src/tools/clippy/CHANGELOG.md
 %doc src/tools/rustfmt/Configurations.md
