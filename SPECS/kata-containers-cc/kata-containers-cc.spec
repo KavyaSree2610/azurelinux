@@ -17,7 +17,7 @@ ExclusiveArch: x86_64
 BuildRequires:  azurelinux-release
 BuildRequires:  golang
 BuildRequires:  protobuf-compiler
-BuildRequires:  rust <= 1.75
+BuildRequires:  rust <= 1.75.0
 BuildRequires:  libseccomp-devel
 BuildRequires:  openssl-devel
 BuildRequires:  clang
@@ -151,7 +151,7 @@ fi
 
 %changelog
 * Thu Apr 03 2025 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> - 3.2.0.azl5-2
-- Pin rust version to <=1.75
+- Pin rust version to <=1.75.0
 
 * Fri Mar 28 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 3.2.0.azl5-1
 - Auto-upgrade to 3.2.0.azl5
