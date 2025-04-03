@@ -141,6 +141,9 @@ userdel -r test
 USER=root SUDO_USER=root %make_install
 mv %{buildroot}%{_docdir}/cargo/LICENSE-THIRD-PARTY .
 rm %{buildroot}%{_docdir}/rustc/{COPYRIGHT,LICENSE-APACHE,LICENSE-MIT}
+rm %{buildroot}%{_docdir}/cargo/{LICENSE-APACHE,LICENSE-MIT}
+rm %{buildroot}%{_docdir}/clippy/{LICENSE-APACHE,LICENSE-MIT}
+rm %{buildroot}%{_docdir}/rustfmt/{LICENSE-APACHE,LICENSE-MIT}
 rm %{buildroot}%{_docdir}/docs/html/.lock
 
 %ldconfig_scriptlets
@@ -169,7 +172,6 @@ rm %{buildroot}%{_docdir}/docs/html/.lock
 %doc %{_docdir}/cargo/*
 %doc %{_docdir}/rustfmt/*
 %doc %{_docdir}/clippy/*
-%doc %{_docdir}/docs/html/*
 %doc CONTRIBUTING.md README.md RELEASES.md
 %doc src/tools/clippy/CHANGELOG.md
 %doc src/tools/rustfmt/Configurations.md
