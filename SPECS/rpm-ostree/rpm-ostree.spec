@@ -9,7 +9,7 @@ URL:            https://github.com/coreos/rpm-ostree
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Patch0:         0001-Revert-compose-Inject-our-static-tmpfiles.d-dropins-.patch
 Patch1:         rpm-ostree-libdnf-build.patch
-# Re-ordering println commands so that relevant symbols can be referenced, see rust-lang/rust#132023
+# Re-ordering println commands so that relevant symbols can be referenced, see https://github.com/rust-lang/rust/issues/132023
 Patch2:		0001-patch-for-failing-test-with-rust-1.85.patch
 BuildRequires:  attr-devel
 BuildRequires:  autoconf
