@@ -77,6 +77,19 @@ programs using Influx data language.
 pushd libflux
 tar -xf %{SOURCE1}
 install -D %{SOURCE2} .cargo/config
+
+patch -p2 <<EOF
+--- a/libflux/flux/build.rs
++++ b/libflux/flux/build.rs
+@@ -82,5 +82,7 @@ fn main() -> Result<()> {
+     let path = dir.join("stdlib.data");
+     serialize(Environment::from(imports), fb::build_env, &path)?;
+
++    println!("cargo:rustc-cdylib-link-arg=-Wl,-soname,libflux.so.%{version}");
++
+     Ok(())
+ }
+
 popd
 
 %build
