@@ -2,7 +2,8 @@ From ff1b9e91b7887fbe87bccd59733574e92705b5ba Mon Sep 17 00:00:00 2001
 From: Kavya Sree Kaitepalli <kkaitepalli@microsoft.com>
 Date: Tue, 15 Apr 2025 10:16:07 +0000
 Subject: [PATCH] Fix-with-latest-rust
-
+Reference: https://github.com/influxdata/flux/pull/5516 , https://github.com/influxdata/flux/pull/5484/files
+Note: This can be removed when we upgrade to v0.196.0
 ---
  libflux/flux-core/src/ast/mod.rs        | 1 +
  libflux/flux-core/src/ast/walk/mod.rs   | 2 +-
