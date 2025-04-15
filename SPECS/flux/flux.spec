@@ -32,18 +32,17 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.
 # Below is a manually created tarball, no download link.
 # Note: the %%{name}-%%{version}-cargo.tar.gz file contains a cache created by capturing the contents downloaded into $CARGO_HOME.
 # To update the cache and config.toml run:
-#   tar -xf %{name}-%{version}.tar.gz
-#   cd %{name}-%{version}/libflux
+#   tar -xf %%{name}-%%{version}.tar.gz
+#   cd %%{name}-%%{version}/libflux
 #   cargo vendor > config.toml
-#   tar -czf %{name}-%{version}-cargo.tar.gz vendor/
+#   tar -czf %%{name}-%%{version}-cargo.tar.gz vendor/
 #
 Source1:        %{name}-%{version}-cargo.tar.gz
 Source2:        cargo_config
-# This patch can be removed when flux gets updated to v0.196.0
-Patch0:		0001-flux-enable-build-with-rust-1.85.0.patch
-Patch1:		disable-static-library.patch
-# This patch is for unblocking build to allow warnings
-Patch2:		test-with-rust.1.85.0.patch
+Patch1:         disable-static-library.patch
+# Fixed upstream in 1.195.0, https://github.com/influxdata/flux/pull/5484.
+Patch2:         fix-build-warnings.patch
+Patch3:         fix-unsigned-char.patch
 BuildRequires:  cargo >= 1.45
 BuildRequires:  kernel-headers
 BuildRequires:  rust >= 1.45
@@ -73,7 +72,9 @@ This package contains the header files and libraries for building
 programs using Influx data language.
 
 %prep
-%autosetup -p1
+%setup -q
+%patch 2 -p1
+%patch 3 -p1
 pushd libflux
 tar -xf %{SOURCE1}
 install -D %{SOURCE2} .cargo/config
@@ -89,6 +90,8 @@ patch -p2 <<EOF
 +
      Ok(())
  }
+EOF
+
 
 popd
 
@@ -141,9 +144,10 @@ RUSTFLAGS=%{rustflags} cargo test --release
 %{_includedir}/influxdata/flux.h
 
 %changelog
-* Wed Mar 05 2025 Kavya Sree Kaitepalli <kkaitepalli@microsoft.com> - 0.194.5-2
-- Build with rust 1.85
-- use autosetup
+* Mon Apr 14 2025 Tobias Brick <tobiasb@microsoft.com> - 0.194.5-2
+- Add missing EOF for inline patch call.
+- Fix build warnings rather than suppressing them.
+- Fix test build error on arm64.
 
 * Thu Feb 01 2024 Mykhailo Bykhovtsev <mbykhovtsev@microsoft.com> - 0.194.5-1
 - Upgrade to version 0.194.5
