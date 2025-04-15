@@ -43,7 +43,7 @@ Patch1:         disable-static-library.patch
 # Fixed upstream in 1.195.0, https://github.com/influxdata/flux/pull/5484.
 Patch2:         fix-build-warnings.patch
 Patch3:         fix-unsigned-char.patch
-Patch4:		0001-Fix-with-latest-rust.patch
+Patch4:         0001-Fix-with-latest-rust.patch
 BuildRequires:  cargo >= 1.45
 BuildRequires:  kernel-headers
 BuildRequires:  rust >= 1.45
@@ -80,7 +80,7 @@ programs using Influx data language.
 pushd libflux
 tar -xf %{SOURCE1}
 install -D %{SOURCE2} .cargo/config
-
+patch -p2 < %{PATCH1}
 patch -p2 <<EOF
 --- a/libflux/flux/build.rs
 +++ b/libflux/flux/build.rs
@@ -93,7 +93,6 @@ patch -p2 <<EOF
      Ok(())
  }
 EOF
-
 
 popd
 
