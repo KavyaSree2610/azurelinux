@@ -1,0 +1,77 @@
+From ff1b9e91b7887fbe87bccd59733574e92705b5ba Mon Sep 17 00:00:00 2001
+From: Kavya Sree Kaitepalli <kkaitepalli@microsoft.com>
+Date: Tue, 15 Apr 2025 10:16:07 +0000
+Subject: [PATCH] Fix-with-latest-rust
+
+---
+ libflux/flux-core/src/ast/mod.rs        | 1 +
+ libflux/flux-core/src/ast/walk/mod.rs   | 2 +-
+ libflux/flux-core/src/formatter/mod.rs  | 1 +
+ libflux/flux-core/src/parser/mod.rs     | 2 +-
+ libflux/flux-core/src/semantic/types.rs | 2 ++
+ 5 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/libflux/flux-core/src/ast/mod.rs b/libflux/flux-core/src/ast/mod.rs
+index ba4b13d..2ed00e4 100644
+--- a/libflux/flux-core/src/ast/mod.rs
++++ b/libflux/flux-core/src/ast/mod.rs
+@@ -1705,4 +1705,5 @@ where
+ // The tests code exports a few helpers for writing AST related tests.
+ // We make it public so other tests can consume those helpers.
+ #[cfg(test)]
++#[allow(missing_docs)]
+ pub mod tests;
+diff --git a/libflux/flux-core/src/ast/walk/mod.rs b/libflux/flux-core/src/ast/walk/mod.rs
+index 90f70ba..a696682 100644
+--- a/libflux/flux-core/src/ast/walk/mod.rs
++++ b/libflux/flux-core/src/ast/walk/mod.rs
+@@ -180,7 +180,7 @@ impl<'a> Node<'a> {
+ 
+ impl<'a> Node<'a> {
+     #[allow(missing_docs)]
+-    pub fn from_expr(expr: &'a Expression) -> Node {
++    pub fn from_expr(expr: &'a Expression) -> Node<'a> {
+         match expr {
+             Expression::Identifier(e) => Node::Identifier(e),
+             Expression::Array(e) => Node::ArrayExpr(e),
+diff --git a/libflux/flux-core/src/formatter/mod.rs b/libflux/flux-core/src/formatter/mod.rs
+index 54a350f..9ae1d39 100644
+--- a/libflux/flux-core/src/formatter/mod.rs
++++ b/libflux/flux-core/src/formatter/mod.rs
+@@ -2110,4 +2110,5 @@ fn starts_with_comment(n: Node) -> bool {
+ }
+ 
+ #[cfg(test)]
++#[allow(missing_docs)]
+ pub mod tests;
+diff --git a/libflux/flux-core/src/parser/mod.rs b/libflux/flux-core/src/parser/mod.rs
+index ac7d4b9..561c3a0 100644
+--- a/libflux/flux-core/src/parser/mod.rs
++++ b/libflux/flux-core/src/parser/mod.rs
+@@ -41,7 +41,7 @@ pub struct Parser<'input> {
+ 
+ impl<'input> Parser<'input> {
+     /// Instantiates a new parser with the given string as input.
+-    pub fn new(src: &'input str) -> Parser {
++    pub fn new(src: &'input str) -> Parser<'input> {
+         let s = Scanner::new(src);
+         Parser {
+             s,
+diff --git a/libflux/flux-core/src/semantic/types.rs b/libflux/flux-core/src/semantic/types.rs
+index 8c5efb7..2f1bc9b 100644
+--- a/libflux/flux-core/src/semantic/types.rs
++++ b/libflux/flux-core/src/semantic/types.rs
+@@ -2189,8 +2189,10 @@ impl Function {
+ pub(crate) trait TypeLike {
+     type Error;
+     fn typ(&self) -> &MonoType;
++    #[allow(dead_code)]
+     fn into_type(self) -> MonoType;
+     fn error(&self, error: Error) -> Self::Error;
++    #[allow(dead_code)]
+     fn location(&self) -> crate::ast::SourceLocation;
+ }
+ 
+-- 
+2.45.3
+
