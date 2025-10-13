@@ -1,7 +1,7 @@
 Summary:        CBL-Mariner release files
 Name:           mariner-release
 Version:        2.0
-Release:        72%{?dist}
+Release:        79%{?dist}
 License:        MIT
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -62,6 +62,27 @@ EOF
 %config(noreplace) %{_sysconfdir}/issue.net
 
 %changelog
+* Tue Oct 07 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 2.0-79
+- Bump release for October 2025 Release
+
+* Tue Sep 02 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 2.0-78
+- Bump release for August 2025 Release
+
+* Tue Jul 22 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 2.0-77
+- Bump release for August 2025 Update
+
+* Mon Jun 30 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 2.0-76
+- Bump release for July 2025 Update
+
+* Wed May 28 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 2.0-75
+- Bump release for June 2025 Release
+
+* Tue Apr 29 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 2.0-74
+- Bump release for May 2025 Update
+
+* Mon Mar 31 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 2.0-73
+- Bump release for April 2025 Update
+
 * Tue Feb 25 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 2.0-72
 - Bump release for March 2025 Update
 

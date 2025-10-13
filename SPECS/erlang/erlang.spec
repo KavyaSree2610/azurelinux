@@ -1,20 +1,24 @@
 %define  debug_package %{nil}
 Summary:        erlang
 Name:           erlang
-Version:        25.2
-Release:        3%{?dist}
+Version:        25.3.2.21
+Release:        4%{?dist}
 License:        Apache-2.0
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
 Group:          Development/Languages
 URL:            https://erlang.org
 Source0:        https://github.com/erlang/otp/archive/OTP-%{version}/otp-OTP-%{version}.tar.gz
-Patch0:         CVE-2023-48795.patch
-Patch1:         CVE-2025-26618.patch
 BuildRequires:  ncurses-devel
 BuildRequires:  openssl-devel
 BuildRequires:  unixODBC-devel
 BuildRequires:  unzip
+
+Patch0:         CVE-2025-4748.patch
+Patch1:         CVE-2025-48038.patch
+Patch2:         CVE-2025-48040.patch
+Patch3:         CVE-2025-48041.patch
+Patch4:         CVE-2025-48039.patch
 
 %description
 erlang programming language
@@ -48,6 +52,24 @@ make
 %{_libdir}/erlang/*
 
 %changelog
+* Fri Oct 03 2025 Akhila Guruju <v-guakhila@microsoft.com> - 25.3.2.21-4
+- Patch for CVE-2025-48039
+
+* Sat Sep 13 2025 Azure Linux Security Servicing Account <azurelinux-security@microsoft.com> - 25.3.2.21-3
+- Patch for CVE-2025-48041, CVE-2025-48040, CVE-2025-48038
+
+* Thu Jun 19 2025 Kevin Lockwood <v-klockwood@microsoft.com> - 25.3.2.21-2
+- Patch CVE-2025-4748
+
+* Wed May 14 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 25.3.2.21-1
+- Auto-upgrade to 25.3.2.21 - for CVE-2025-46712
+
+* Thu Apr 17 2025 Kshitiz Godara <kgodara@microsoft.com> - 25.3.2.20-1
+- Upgrade minor version to fix CVE-2025-32433
+
+* Thu Apr 03 2025 Sandeep Karambelkar <skarambelkar@microsoft.com> - 25.2-4
+- Include patch to fix CVE-2025-30211
+
 * Fri Feb 28 2025 Kanishk Bansal <kanbansal@microsoft.com> - 25.2-3
 - Include patch to fix CVE-2025-26618
 

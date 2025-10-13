@@ -13,7 +13,7 @@
 Summary:        Go
 Name:           golang
 Version:        1.18.8
-Release:        5%{?dist}
+Release:        10%{?dist}
 License:        BSD-3-Clause
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -27,6 +27,15 @@ Patch1:         CVE-2022-41717.patch
 # CVE-2024-24790 is fixed in 1.18.8
 Patch2:         CVE-2024-24790.patch
 Patch3:         CVE-2024-45341.patch
+Patch4:         CVE-2024-34158.patch
+Patch5:         CVE-2025-22871.patch
+Patch6:         CVE-2024-24789.patch
+Patch7:         CVE-2025-22870-1.18.patch
+Patch8:         CVE-2024-34155.patch
+Patch9:         CVE-2025-47907-1.18.patch
+Patch10:        CVE-2025-4673-1.18.patch
+Patch11:        CVE-2025-4674-1.18.patch
+Patch12:        CVE-2025-47906-1.18.patch
 Obsoletes:      %{name} < %{version}
 Provides:       %{name} = %{version}
 Provides:       go = %{version}-%{release}
@@ -46,6 +55,16 @@ mv -v go go-bootstrap
 patch -Np1 --ignore-whitespace < %{PATCH1}
 patch -Np1 --ignore-whitespace < %{PATCH2}
 patch -Np1 --ignore-whitespace < %{PATCH3}
+patch -Np1 --ignore-whitespace < %{PATCH4}
+patch -Np1 --ignore-whitespace < %{PATCH5}
+patch -Np1 --ignore-whitespace < %{PATCH6}
+patch -Np1 --ignore-whitespace < %{PATCH7}
+patch -Np1 --ignore-whitespace < %{PATCH8}
+patch -Np1 --ignore-whitespace < %{PATCH9}
+patch -Np1 --ignore-whitespace < %{PATCH10}
+patch -Np1 --ignore-whitespace < %{PATCH11}
+patch -Np1 --ignore-whitespace < %{PATCH12}
+
 %build
 # Build go 1.4 bootstrap
 pushd %{_topdir}/BUILD/go-bootstrap/src
@@ -125,10 +144,25 @@ fi
 %{_bindir}/*
 
 %changelog
+* Mon Sep 23 2025 Archana Shettigar <v-shettigara@microsoft.com> - 1.18.8-10
+- Patch CVE-2025-47906 and CVE-2025-4674
+
+* Thu Aug 21 2025 Akhila Guruju <v-guakhila@microsoft.com> - 1.18.8-9
+- Patch CVE-2025-47907 and CVE-2025-4673
+
+* Fri Apr 25 2025 Archana Shettigar <v-shettigara@microsoft.com> - 1.18.8-8
+- Patch CVE-2024-24789, CVE-2024-34155 & CVE-2025-22870
+
+* Mon Apr 21 2025 Bhagyashri Pathak <bhapathak@microsoft.com> - 1.18.8-7
+- Address CVE-2025-22871 using an upstream patch.
+
+* Fri Apr 18 2025 Kshitiz Godara <kgodara@microsoft.com> - 1.18.8-6
+- Address CVE-2024-34158 using an upstream patch.
+
 * Tue Feb 04 2025 Kanishk bansal <kanbansal@microsoft.com> - 1.18.8-5
 - Address CVE-2024-45341 using an upstream patch.
 
-* Mon July 29 2024 Bhagyashri Pathak bhapathak@microsoft.com - 1.18.8-4
+* Mon Jul 29 2024 Bhagyashri Pathak bhapathak@microsoft.com - 1.18.8-4
 - Patch CVE-2024-24790
 
 * Mon Jan 23 2022 Nicolas Guibourge <nicolasg@microsoft.com> - 1.18.8-3

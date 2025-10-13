@@ -82,8 +82,8 @@ Name:           ruby
 # TODO: When changing ruby version, these gemified stdlib
 # provides should be versioned according to the ruby version.
 # More info: https://stdgems.org/
-Version:        3.1.4
-Release:        8%{?dist}
+Version:        3.1.7
+Release:        3%{?dist}
 License:        (Ruby OR BSD) AND Public Domain AND MIT AND CC0 AND zlib AND UCD
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -99,15 +99,8 @@ Source6:        rubygems.req
 Source7:        macros.rubygems
 # Updates default ruby-uri to 0.12.2 and vendored one to 0.10.3. Remove once ruby gets updated to a version that comes with both lib/uri/version.rb and lib/bundler/vendor/uri/lib/uri/version.rb versions >= 0.12.2 or == 0.10.3
 Patch0:         CVE-2023-36617.patch
-Patch1:         CVE-2024-27280.patch
-Patch2:         CVE-2024-27281.patch
-Patch3:         CVE-2024-27282.patch
-# Patch no longer needed if REXML gem is 3.2.7 or later. Now is 3.2.5
-Patch4:         CVE-2024-35176.patch
-# Patch no longer needed if REXML gem is 3.3.3 or later. Now is 3.2.5
-Patch5:         CVE-2024-41946.patch
-# Patch no longer needed if REXML gem is 3.3.9 or later. Now is 3.2.5
-Patch6:         CVE-2024-49761.patch
+Patch1:         CVE-2025-6442.patch
+Patch2:         CVE-2025-24294.patch
 BuildRequires:  openssl-devel
 BuildRequires:  readline
 BuildRequires:  readline-devel
@@ -382,7 +375,7 @@ sudo -u test make test TESTS="-v"
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/*.so.3.1
-%{_libdir}/*.so.3.1.4
+%{_libdir}/*.so.3.1.7
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/ruby/*
 %{_datadir}/ri/*
@@ -410,6 +403,18 @@ sudo -u test make test TESTS="-v"
 %{_rpmconfigdir}/rubygems.con
 
 %changelog
+* Tue Jul 15 2025 BinduSri Adabala <v-badabala@microsoft.com> - 3.1.7-3
+- Patch CVE-2025-24294
+
+* Mon Jun 30 2025 Kevin Lockwood <v-klockwood@microsoft.com> - 3.1.7-2
+- Patch CVE-2025-6442
+
+* Wed May 14 2025 Kevin Lockwood <v-klockwood@microsoft.com> - 3.1.7-1
+- Patch CVE-2024-39908 by upgrading to 3.1.7
+
+* Mon Mar 10 2025 Kanishk Bansal <kanbansal@microsoft.com> - 3.1.4-9
+- Patch CVE-2025-27219, CVE-2025-27220, CVE-2025-27221
+
 * Mon Nov 04 2024 Saul Paredes <saulparedes@microsoft.com> - 3.1.4-8
 - Patch CVE-2024-49761
 

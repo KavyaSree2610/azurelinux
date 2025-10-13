@@ -1,18 +1,14 @@
 %define debug_package %{nil}
 Summary:        Text editor
 Name:           vim
-Version:        9.1.0791
-Release:        4%{?dist}
+Version:        9.1.1616
+Release:        1%{?dist}
 License:        Vim
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
 Group:          Applications/Editors
 URL:            https://www.vim.org
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:         CVE-2025-22134.patch
-Patch1:         CVE-2025-24014.patch
-Patch2:         CVE-2025-26603.patch
-Patch3:         CVE-2025-1215.patch
 
 BuildRequires:  ncurses-devel
 BuildRequires:  python3-devel
@@ -140,7 +136,6 @@ fi
 %{_datarootdir}/vim/vim*/lang/*.vim
 %doc %{_datarootdir}/vim/vim*/lang/*.txt
 %lang(af) %{_datarootdir}/vim/vim*/lang/af/LC_MESSAGES/vim.mo
-%lang(am) %{_datarootdir}/vim/vim*/lang/am/LC_MESSAGES/vim.mo
 %lang(ca) %{_datarootdir}/vim/vim*/lang/ca/LC_MESSAGES/vim.mo
 %lang(cs) %{_datarootdir}/vim/vim*/lang/cs/LC_MESSAGES/vim.mo
 %lang(de) %{_datarootdir}/vim/vim*/lang/de/LC_MESSAGES/vim.mo
@@ -151,6 +146,7 @@ fi
 %lang(fr) %{_datarootdir}/vim/vim*/lang/fr/LC_MESSAGES/vim.mo
 %lang(ga) %{_datarootdir}/vim/vim*/lang/ga/LC_MESSAGES/vim.mo
 %lang(hu) %{_datarootdir}/vim/vim*/lang/hu/LC_MESSAGES/vim.mo
+%lang(hy) %{_datarootdir}/vim/vim*/lang/hy/LC_MESSAGES/vim.mo
 %lang(it) %{_datarootdir}/vim/vim*/lang/it/LC_MESSAGES/vim.mo
 %lang(ja) %{_datarootdir}/vim/vim*/lang/ja/LC_MESSAGES/vim.mo
 %lang(ko.UTF-8) %{_datarootdir}/vim/vim*/lang/ko.UTF-8/LC_MESSAGES/vim.mo
@@ -201,8 +197,23 @@ fi
 %{_bindir}/rview
 %{_bindir}/vim
 %{_bindir}/vimdiff
+%{_datarootdir}/vim/vim91/LICENSE
+%{_datarootdir}/vim/vim91/README.txt
 
 %changelog
+* Tue Aug 26 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.1.1616-1
+- Auto-upgrade to 9.1.1616 - for CVE-2025-9390
+
+* Fri Jul 18 2025 Jyoti Kanase <v-jykanase@microsoft.com> - 9.1.1552-1
+- Upgrade to 9.1.1552 - for CVE-2025-53905 and CVE-2025-53906
+
+* Mon Mar 17 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.1.1198-1
+- Auto-upgrade to 9.1.1198 - for CVE-2025-29768
+
+* Wed Mar 05 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 9.1.1164-1
+- Auto-upgrade to 9.1.1164 - for CVE-2025-27423
+- Remove previously applied patches
+
 * Sun Feb 23 2025 Kanishk Bansal <kanbansal@microsoft.com> - 9.1.0791-4
 - Patch CVE-2025-26603 & CVE-2025-1215
 

@@ -10,7 +10,7 @@
 Summary:        Microsoft Kubernetes
 Name:           kubernetes
 Version:        1.28.4
-Release:        15%{?dist}
+Release:        19%{?dist}
 License:        ASL 2.0
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -29,6 +29,9 @@ Patch7:         CVE-2024-10220.patch
 Patch8:         CVE-2025-27144.patch
 Patch9:         CVE-2025-22868.patch
 Patch10:        CVE-2025-22869.patch
+Patch11:        CVE-2025-30204.patch
+Patch12:        CVE-2024-51744.patch
+Patch13:        CVE-2025-22872.patch
 BuildRequires:  flex-devel
 BuildRequires:  glibc-static >= 2.35-7%{?dist}
 BuildRequires:  golang
@@ -101,8 +104,7 @@ Summary:        Kubernetes pause
 Pause component for Microsoft Kubernetes %{version}.
 
 %prep
-%setup -q -c -n %{name}
-%autopatch -p1
+%autosetup -p1 -c -n %{name}
 
 %build
 # set version information using KUBE_GIT_VERSION
@@ -275,6 +277,18 @@ fi
 %{_exec_prefix}/local/bin/pause
 
 %changelog
+* Thu Sep 04 2025 Akhila Guruju <v-guakhila@microsoft.com> - 1.28.4-19
+- Bump release to rebuild with golang
+
+* Thu Apr 24 2025 Sreeniavsulu Malavathula <v-smalavathu@microsoft.com> - 1.28.4-18
+- Patch CVE-2025-22872
+
+* Tue Apr 01 2025 Sreeniavsulu Malavathula <v-smalavathu@microsoft.com> - 1.28.4-17
+- Fix CVE-2024-51744 with an upstream patch
+
+* Sat Mar 29 2025 Kanishk Bansal <kanbansal@microsoft.com> - 1.28.4-16
+- Patch CVE-2025-30204
+
 * Mon Mar 03 2025 Kanishk Bansal <kanbansal@microsoft.com> - 1.28.4-15
 - Fix CVE-2025-27144, CVE-2025-22868, CVE-2025-22869 with an upstream patch
 

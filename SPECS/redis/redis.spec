@@ -1,6 +1,6 @@
 Summary:        advanced key-value store
 Name:           redis
-Version:        6.2.17
+Version:        6.2.20
 Release:        1%{?dist}
 License:        BSD
 Vendor:         Microsoft Corporation
@@ -84,6 +84,22 @@ exit 0
 %config(noreplace) %attr(0640, %{name}, %{name}) %{_sysconfdir}/redis.conf
 
 %changelog
+* Tue Oct 07 2025 Kanishk Bansal <kanbansal@microsoft.com> - 6.2.20-1
+- Upgrade to 6.2.20 for CVE-2025-49844.
+- Remove CVE-2025-32023, CVE-2025-48367 as they have been fixed with 6.2.19
+
+* Wed Jul 09 2025 Kevin Lockwood <v-klockwood@microsoft.com> - 6.2.18-3
+- Patch for CVE-2025-48367
+
+* Wed Jul 09 2025 Azure Linux Security Servicing Account <azurelinux-security@microsoft.com> - 6.2.18-2
+- Patch for CVE-2025-32023
+
+* Wed Jul 09 2025 Azure Linux Security Servicing Account <azurelinux-security@microsoft.com> - 6.2.18-2
+- Patch for CVE-2025-32023
+
+* Wed Apr 30 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 6.2.18-1
+- Auto-upgrade to 6.2.18 - for CVE-2025-21605
+
 * Mon Jan 13 2025 CBL-Mariner Servicing Account <cblmargh@microsoft.com> - 6.2.17-1
 - Auto-upgrade to 6.2.17 - Upgrade redis to fix CVE-2024-46981
 

@@ -13,7 +13,7 @@
 
 Name:         kata-containers-cc
 Version:      3.2.0.azl2
-Release:      5%{?dist}
+Release:      8%{?dist}
 Summary:      Kata Confidential Containers package developed for Confidential Containers on AKS
 License:      ASL 2.0
 Vendor:       Microsoft Corporation
@@ -24,6 +24,9 @@ Source2:      mariner-coco-build-uvm.sh
 Patch0:       CVE-2023-45288.patch
 Patch1:       CVE-2023-39325.patch
 Patch2:       CVE-2024-24786.patch
+Patch3:       CVE-2023-44487.patch
+Patch4:       CVE-2024-43806.patch
+Patch5:       CVE-2025-5791.patch
 
 ExclusiveArch: x86_64
 
@@ -74,9 +77,10 @@ Requires:       kernel-uvm
 This package contains the the tooling and files required to build the UVM
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -N -n %{name}-%{version}
 pushd %{_builddir}/%{name}-%{version}
 tar -xf %{SOURCE1}
+%autopatch -p1
 popd
 
 %build
@@ -291,6 +295,15 @@ install -D -m 0755 %{_builddir}/%{name}-%{version}/tools/osbuilder/image-builder
 %exclude %{osbuilder}/tools/osbuilder/rootfs-builder/ubuntu
 
 %changelog
+* Thu Sep 04 2025 Akhila Guruju <v-guakhila@microsoft.com> - 3.2.0.azl2-8
+- Bump release to rebuild with golang
+
+* Mon May 05 2025 Ankita Pareek <ankitapareek@microsoft.com> - 3.2.0.azl2-7
+- Add patch for CVE-2024-43806, CVE-2025-5791
+
+* Mon Mar 10 2025 Manuel Huber <mahuber@microsoft.com> - 3.2.0.azl2-6
+- Add patch for CVE-2023-44487
+
 * Wed Nov 27 2024 Aadhar Agarwal <aadagarwal@microsoft.com> - 3.2.0.azl2-5
 - Add patches for CVE-2023-45288, CVE-2023-39325 and CVE-2024-24786
 

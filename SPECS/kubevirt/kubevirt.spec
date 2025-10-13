@@ -19,7 +19,7 @@
 Summary:        Container native virtualization
 Name:           kubevirt
 Version:        0.59.0
-Release:        24%{?dist}
+Release:        30%{?dist}
 License:        ASL 2.0
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -41,6 +41,12 @@ Patch08:        CVE-2022-32149.patch
 Patch09:        CVE-2023-26484.patch
 Patch10:        CVE-2024-45338.patch
 Patch11:        CVE-2023-3978.patch
+Patch12:        CVE-2025-22869.patch
+Patch13:        CVE-2023-48795.patch
+Patch14:        CVE-2024-51744.patch
+Patch15:        CVE-2025-22872.patch
+Patch16:        CVE-2024-33394.patch
+
 %global debug_package %{nil}
 BuildRequires:  glibc-devel
 BuildRequires:  glibc-static >= 2.35-7%{?dist}
@@ -220,6 +226,24 @@ install -p -m 0644 cmd/virt-handler/nsswitch.conf %{buildroot}%{_datadir}/kube-v
 %{_bindir}/virt-tests
 
 %changelog
+* Thu Sep 04 2025 Akhila Guruju <v-guakhila@microsoft.com> - 0.59.0-30
+- Bump release to rebuild with golang
+
+* Fri Jul 11 2025 BinduSri Adabala <v-badabala@microsoft.com> - 0.59.0-29
+- Patch CVE-2024-33394
+
+* Tue Apr 22 2025 Sreeniavsulu Malavathula <v-smalavathu@microsoft.com> - 0.59.0-28
+- Patch CVE-2025-22872
+
+* Thu Mar 27 2025 Jyoti Kanase <v-jykanase@microsoft.com> - 0.59.0-27
+- Fix CVE-2024-51744
+
+* Fri Apr 04 2025 Sumedh Sharma <sumsharma@microsoft.com> - 0.59.0-26
+- Add patch to resolve CVE-2023-48795
+
+* Mon Mar 10 2025 Sudipta Pandit <sudpandit@microsoft.com> - 0.59.0-25
+- Backport patch for CVE-2025-22869
+
 * Wed Feb 05 2025 Sudipta Pandit <sudpandit@microsoft.com> - 0.59.0-24
 - Backport patch for CVE-2023-3978
 

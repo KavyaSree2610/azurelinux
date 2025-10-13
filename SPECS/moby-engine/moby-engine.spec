@@ -3,7 +3,7 @@
 Summary: The open-source application container engine
 Name:    moby-engine
 Version: 24.0.9
-Release: 14%{?dist}
+Release: 18%{?dist}
 License: ASL 2.0
 Group:   Tools/Container
 URL: https://mobyproject.org
@@ -27,8 +27,12 @@ Patch7:  CVE-2024-29018.patch
 Patch8:  CVE-2024-36621.patch
 Patch9:  CVE-2024-36623.patch
 Patch10: CVE-2024-45337.patch
-Patch11:  CVE-2024-24786.patch
-Patch12:  CVE-2024-23650.patch
+Patch11: CVE-2024-24786.patch
+Patch12: CVE-2024-23650.patch
+Patch13: CVE-2025-22868.patch
+Patch14: CVE-2025-22869.patch
+Patch15: CVE-2025-30204.patch
+Patch16: CVE-2024-51744.patch
 
 %{?systemd_requires}
 
@@ -129,6 +133,18 @@ fi
 %{_unitdir}/*
 
 %changelog
+* Thu Sep 04 2025 Akhila Guruju <v-guakhila@microsoft.com> - 24.0.9-18
+- Bump release to rebuild with golang
+
+* Thu May 22 2025 Akhila Guruju <v-guakhila@microsoft.com> - 24.0.9-17
+- Patch CVE-2024-51744
+
+* Mon Apr 21 2025 Dallas Delaney <dadelan@microsoft.com> - 24.0.9-16
+- Patch CVE-2025-30204
+
+* Mon Mar 17 2025 Dallas Delaney <dadelan@microsoft.com> - 24.0.9-15
+- Patch CVE-2025-22868 & CVE-2025-22869
+
 * Tue Feb 11 2025 Sandeep Karambelkar <skarambelkar@microsoft.com> - 24.0.9-14
 - Patch CVE-2024-23650
 
